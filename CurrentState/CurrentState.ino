@@ -4,7 +4,6 @@
 #include <EEPROM.h>
 #include "Arduino.h"
 #include "heltec.h"
-#include "images.h"
 
 #define BUTTON_PIN 0
 
@@ -32,9 +31,11 @@ void isr()
   if (digitalRead(0) == 0)
   { 
     doFalling();
+    delay(10);
   }
   else {
     doRising();
+    delay(10);
   }
 }
 
@@ -44,88 +45,87 @@ void setup()
   Serial.begin(115200); //Initialising if(DEBUG)Serial Monitor
 
     // SCREEN -----------------------------------------------------------------------------------------
-  Heltec.begin(true /*DisplayEnable Enable*/, false /*LoRa Disable*/, true /*Serial Enable*/);
+  Heltec.begin(true /DisplayEnable Enable/, false /LoRa Disable/, true /Serial Enable/);
   delay(300);
 
   //---------------------------------------------------------------------------------------------------
 
-  // Serial.println();
-  // Serial.println("Disconnecting current wifi connection");
+  Serial.println();
+  Serial.println("Disconnecting current wifi connection");
 
   WiFi.disconnect();
   EEPROM.begin(512); //Initialasing EEPROM
   delay(10);
   pinMode(0, INPUT_PULLUP);
   attachInterrupt(0, isr, CHANGE);
+  // pinMode(18, INPUT_PULLUP);
   //---------------------------------------- Read eeprom for ssid and pass
   for (int i = 0; i < 32; ++i)
   {
     esid += char(EEPROM.read(i));
   }
-  // Serial.print("SSID: ");
-  // Serial.println(esid);
+  Serial.print("SSID: ");
+  Serial.println(esid);
   for (int i = 32; i < 96; ++i)
   {
     epass += char(EEPROM.read(i));
   }
-  // Serial.print("PASS: ");
-  // Serial.println(epass);
+  Serial.print("PASS: ");
+  Serial.println(epass);
   WiFi.begin(esid.c_str(), epass.c_str());
 }
 
+
+
 void drawWifiConnection() {
     Heltec.display->clear();
-    Heltec.display->setFont(ArialMT_Plain_10);
-    Heltec.display->drawString(10, 0, "connected to:" + esid);
+    Heltec.display->drawString(0, 0, "connected to:" + esid);
     Heltec.display->display();
 }
-
-void drawParticipants() {
-    Heltec.display->setFont(ArialMT_Plain_16);
-    Heltec.display->drawString(0, 20, "zoom: ");
-    Heltec.display->display();
-}
-
 
 void loop() {
-  if(pressedTime>4000 && buttonPressed==1){
+  if(totalPressTime>4000 && buttonPressed==1){
     buttonPressed = 0;
-    totalPressTime = 0;
+    totalPressTime=0;
     WiFi.disconnect();
-    launchWeb();
+    
+    // Serial.println("Turning the HotSpot On");
+    // launchWeb();
     setupAP();// Setup HotSpot
+    // Serial.println();
     while ((WiFi.status() != WL_CONNECTED))
     {
-      Heltec.display->clear();
-      Heltec.display->display();
+      // Serial.print(".");
       delay(10);
       server.handleClient();
     }
+    
   }
   else if(totalPressTime>0 && totalPressTime<2000 && buttonPressed==1)
   {
     buttonPressed=0;
     totalPressTime=0;
     Serial.println("Joining the zoom meeting");
-    drawParticipants();
   }
   
   if ((WiFi.status() == WL_CONNECTED))
   {
     for (int i = 0; i < 10; i++)
     {
-      // Serial.print("Connected to ");
+      Serial.print("Connected to ");
       drawWifiConnection();
-      // Serial.print(esid);
+      Serial.print(esid);
       delay(100);
     }
   }
+  if (testWifi())
+  {
+    Serial.println(" connection status positive");
+    return;
+  }
   else
   {
-    Heltec.display->clear();
-    Heltec.display->drawStringMaxWidth(0, 0, 128,"please switch to Access point mode to reconfigure the Wifi");
-    Heltec.display->display();
-    // Serial.println("please switch to Access point mode to reconfigure the WiFi");
+    Serial.println("please switch to Access point mode to reconfigure the WiFi");
     return;
   }
   delay(100);
@@ -134,7 +134,7 @@ void loop() {
 void doRising()
 {
   totalPressTime = millis()-pressedTime;
-  pressedTime = 0;
+  pressedTime=0;
   Serial.printf("total pressed time %lu \n",totalPressTime);
 }
 
@@ -143,7 +143,6 @@ void doFalling()
   pressedTime = millis();
   buttonPressed=1;
   Serial.printf("millis in interrupt %lu \n",millis());
- 
 }
 
 
@@ -274,7 +273,3 @@ void createWebServer()
     });
   }
 }
-
-
-
-  
