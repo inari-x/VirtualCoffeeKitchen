@@ -31,11 +31,11 @@ void isr()
 {
   if (digitalRead(0) == 0)
   { 
-    doRising();
+    doFalling();
     delay(10);
   }
   else {
-    doFalling();
+    doRising();
     delay(10);
   }
 }
@@ -92,6 +92,8 @@ void drawParticipants() {
 
 void loop() {
   if(pressedTime>4000 && buttonPressed==1){
+    buttonPressed = 0;
+    totalPressTime = 0;
     WiFi.disconnect();
     // Serial.println("Turning the HotSpot On");
     launchWeb();
@@ -108,7 +110,7 @@ void loop() {
     buttonPressed = 0;
     totalPressTime=0;
   }
-  else if(pressedTime<2000 && buttonPressed==1)
+  else if(pressedTime>0 && totalPressTime<2000 && buttonPressed==1)
   {
     drawParticipants();
     Serial.println("Joining the zoom meeting");
@@ -147,12 +149,12 @@ void loop() {
 void doRising()
 {
   totalPressTime = millis()-pressedTime;
+  pressedTime = 0;
   Serial.printf("total pressed time %lu \n",totalPressTime);
 }
 
 void doFalling()
 {
-  totalPressTime=0;
   pressedTime = millis();
   buttonPressed=1;
   Serial.printf("millis in interrupt %lu \n",millis());
