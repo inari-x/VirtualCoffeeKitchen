@@ -1,0 +1,32 @@
+.text-blue {
+    color: blue;
+  }
+  
+  .text-red {
+    color: red;
+  }
+
+  .lead {
+    display: flex;
+    margin: 50px;
+  }
+
+  .important_text {
+    line-height: 1.16em;
+    font-size: 1.8em;
+    font-family: monospace;
+  }
+
+  
+  h1 {
+    font-size: 3em;
+    margin-bottom: 40px;
+    margin-top: 20px;
+  }
+
+  
+  h2 {
+    font-size: 2em;
+  }
+  
+
