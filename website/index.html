@@ -5,6 +5,11 @@
     <meta name="description" content="">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    
+
     <title>Projects</title>
 
     <style>
@@ -146,21 +151,29 @@
 
         <div id="result" class="row">
             <div class="col-3">
-                <img src="./images/logo_code.png" alt="result" style="width:100px;">
+                <div class="slider-images">
+                    <img src="./images/Device.jpeg" alt="Result" class="slider-img">
+                    <img src="./images/Device_Button.jpg" alt="Result" class="slider-img">
+                    <img src="./images/Parts.jpeg" alt="Result" class="slider-img">
+                </div>
             </div>
             <div class="col-9">
                 <h2>Result</h2>
-                <p>The Virtual Coffee Kitchen project has been a challenging and rewarding experience for the development team. The team was tasked with creating a digital solution to address the needs of remote workers and to bring a sense of community and collaboration to the remote work environment. The team rose to the challenge and developed a product that has received widespread recognition and praise from users. The success of the project has been a source of pride for the development team and has confirmed their belief in the power of technology to bring people together and make a real impact. The development process was a collaborative effort that involved close collaboration with the client, Thoughtworks, to ensure that the product met the needs of remote workers. The team is proud to have created a product that is not only innovative but also truly makes a difference in the lives of remote workers. The Virtual Coffee Kitchen project has been a fantastic opportunity for the development team to showcase their skills and to contribute to a product that has the potential to change the remote work landscape.</p>
-                <p>Result (for the technology used): The Virtual Coffee Kitchen project made effective use of a combination of cutting-edge technologies to create a digital solution for remote workers. The Heltec ESP32 Wifi Kit served as the backbone of the system, providing the necessary connectivity and computational power to run the digital twin. The Apache server was used to host the user interface and provide access to the Zoom meeting functionality. The Arduino IDE was used to program the ESP32 board, making it easy to develop and test the product. The lithium battery ensured that the Virtual Coffee Kitchen could be used even in areas without access to a power source, making it a truly portable solution for remote workers. The 3D printed case provided a protective and aesthetically pleasing enclosure for the technology, giving the product a professional and finished appearance.
-                    The successful implementation of these technologies in the Virtual Coffee Kitchen project has resulted in a product that is both innovative and practical. The combination of the Heltec ESP32 Wifi Kit, Apache server, Arduino IDE, lithium battery, and 3D printed case has created a product that is both powerful and easy to use, while also being visually appealing. The use of these technologies has allowed the Virtual Coffee Kitchen to meet the needs of remote workers and provide a sense of community and collaboration even while working from home. The technology used in the Virtual Coffee Kitchen project is a testament to the power of innovation and collaboration in creating digital solutions that make a real difference in the lives of users. For project management we used Trello
-                </p>
-                <div>
-                    <img src = "./images/Device.jpeg" alt="Result" style="width:100px;">
-                    <img src = "./images/Device_Button.jpg" alt="Result" style="width:100px;">
-                    <img src = "./images/Parts.jpeg" alt="Result" style="width:100px;">
-                </div>
+                <p>The Virtual Coffee Kitchen project has been a challenging and rewarding experience for the development team. </p>
+                <p>The success of the project has been a source of pride for the development team and has confirmed their belief in the power of technology to bring people together and make a real impact.</p>
+                <p>The development process was a collaborative effort that involved close collaboration with the client, Thoughtworks, to ensure that the product met the needs of remote workers.</p>
+                <p>The team is proud to have created a product that is not only innovative but also truly makes a difference in the lives of remote workers. 
+                <p>The Virtual Coffee Kitchen project has been a fantastic opportunity for the development team to showcase their skills and to contribute to a product that has the potential to change the remote work landscape.</p>
+                <p>The Virtual Coffee Kitchen project made effective use of a combination of cutting-edge technologies to create a digital solution for remote workers. The Heltec ESP32 Wifi Kit served as the backbone of the system, providing the necessary connectivity and computational power to run the digital twin. </p>
+                <p>The Apache server was used to host the user interface and provide access to the Zoom meeting functionality. </p>
+                <p>The Arduino IDE was used to program the ESP32 board, making it easy to develop and test the product. The lithium battery ensured that the Virtual Coffee Kitchen could be used even in areas without access to a power source, making it a truly portable solution for remote workers. </p>
+                <p>The 3D printed case provided a protective and aesthetically pleasing enclosure for the technology, giving the product a professional and finished appearance. </p>
+                <p>The successful implementation of these technologies in the Virtual Coffee Kitchen project has resulted in a product that is both innovative and practical. </p>
+                <p>The combination of the Heltec ESP32 Wifi Kit, Apache server, Arduino IDE, lithium battery, and 3D printed case has created a product that is both powerful and easy to use, while also being visually appealing. </p>                  
             </div>
         </div>
+
+        
 </main>
 
 <footer id="myfooter" class="footer mt-auto py-3 bg-dark">
@@ -179,4 +192,21 @@
 </body>
 </html>
 
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.slider-images').slick({
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      autoplay: true,
+      autoplaySpeed: 2000,
+      dots: false,
+    });
+  });
+</script>
+
+<style>
+
+
+</style>
 

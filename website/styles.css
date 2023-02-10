@@ -83,5 +83,36 @@
     font-family: monospace;
     line-height: 3.2em;
   }
+
+  .slick-slide img {
+    max-width: 20%;
+    height: 20%;
+  }
+
+  .slider-img {
+    width: 20px;
+    height: auto;
+    border-radius: 5px;
+
+}
+
+.slick-prev, .slick-next {
+    transform: translateY(-50%);
+    position: absolute;
+    top: 10px;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+    font-weight: bold;
+    border: none;
+}
+
+.slick-prev {
+    left: 0;
+}
+
+.slick-next {
+    right: 0;
+}
   
 
