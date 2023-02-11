@@ -28,7 +28,7 @@
         }
 
         main > .container {
-            padding: 60px 15px 0;
+            padding: 100px 15px 0;
         }
     </style>
 </head>
@@ -38,8 +38,8 @@
     <!-- Fixed navbar -->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="https://fiw.htw-berlin.de/studium/projekte/"><img src="./images/HTW_LOGO.jpg" width="40" alt=""></a>
-            <a class="navbar-brand" href="https://www.uts.edu.au"><img src="./images/UTS_LOGO.jpg" width="32" alt=""></a>
+            <a class="navbar-brand" href="https://fiw.htw-berlin.de/studium/projekte/"><img src="./images/HTW_logo.png"  width="64" alt=""></a>
+            <a class="navbar-brand" href="https://www.uts.edu.au"><img src="./images/logo-uts.png" width="64" alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -49,13 +49,13 @@
                         <a class="nav-link" href="#project">Project</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#projectteam">Projectteam</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#result">Result</a>
+                        <a class="nav-link" href="#team">Team</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#technologies">Technology</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#result">Results</a>
                     </li>
                 </ul>
             </div>
@@ -66,90 +66,119 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
     <div class="container">
+        <div style="padding: 75px 0; background: url('./images/coffee-trans.png'); background-position: 50% 50%; background-repeat: no-repeat;">
         <h1>Virtual Coffee Kitchen</h1>
         <div class="row">
-        <div class="centered">
-            <img src="./images/coffee.png" alt="coffee" style="width: 30%; margin-bottom: 60px;">
-        </div>
+
         <div class="important_text">      
         <p>This Project was a university collaboration between HTW Berlin and UTS Australia.</p>
         <p>Introducing Virtual Coffee Kitchen, a digital twin designed for the modern-day remote worker. With the push of a button, you can now join a Zoom meeting and feel like you're right back in the office with your colleagues. This innovative project uses the power of an ESP32 board to bring remote workers together in a virtual coffee break setting, allowing them to stay connected, collaborate and build camaraderie even while working from home. Say goodbye to lonely home-office days and hello to a more connected and productive work environment with Virtual Coffee Kitchen.</p>
         </div>
     </div>
-        <hr/>
 
-        <div id="project">
+    </div>
+        <hr id="project"/>
+
+        <div >
             <div class="row">
-                <div class="col-7">
-                    <p style="font-weight: bold; font-size: 18px">Problem: Staying in contact with Co-workers in homeoffice</p>
-                    <h3>Solution: Wherevever you are - contact your co-workers with one click and start chatting!</h1>
-                        <p style="font-size: 18px">The Virtual Coffee Kitchen is designed for remote workers who are looking to stay connected with their colleagues and maintain a sense of community while working from home. Whether it's for a quick catch-up or a scheduled meeting, this digital solution provides an easy and convenient way for remote workers to stay connected and productive.</p>
-                        <p> The goal was to create a digital solution for remote workers to connect and collaborate in a virtual coffee break setting without relying on reading a message in a chat tool.</p>  
-                        <p> With Status quo, the thoughtworkers can now join a zoom meeting with an external device placed next to their usual work station. The device is portable and runs on battery.</p>
-                        <p> The wifi can be reconfigured at any time - depending if you want to work in the office or from home</p>
-                        <p> Once a person joins the meeting, other thoughtworkers will be notified with a non-disturbing screen flash of the device.</p>                 
-
-                </div>
-                <div class="col-5 centered_img">
+                <div class="col-3">
+                    <h2>Our Problem</h2>
+                    <p>Staying in contact with colleagues during home office. Our project is sponsored by ThoughtWorks, in collaboraton with UTS Sydney and HTW Berlin.</p>
                     <img src="./images/Thoughtworks_logo.png" alt="project" style="width: 80%;">
                 </div>
+                <div class="col-1"></div>
+                <div class="col-8">
+                    <h2>Contact your colleagues with one click and start chatting!</h2>
+                        <p>The Virtual Coffee Kitchen is designed for remote workers who are looking to stay connected with their colleagues and maintain a sense of community while working from home. Whether it's for a quick catch-up or a scheduled meeting, this digital solution provides an easy and convenient way for remote workers to stay connected and productive.</p>
+                        <p>The goal was to create a digital solution for remote workers to connect and collaborate in a virtual coffee break setting without relying on reading a message in a chat tool.</p>  
+                        <p>With Status quo, the thoughtworkers can now join a zoom meeting with an external device placed next to their usual work station. The device is portable and runs on battery.</p>
+                        <p>The wifi can be reconfigured at any time - depending if you want to work in the office or from home</p>
+                        <p>Once a person joins the meeting, other thoughtworkers will be notified with a non-disturbing screen flash of the device.</p>                
+                </div>
+
             </div>
         </div>
 
-        <hr/>
+        <hr id="team"/>
 
-        <div id="projectteam" class="row">
-            <div class="col-7 centered_img">
-                <img src="./images/Sandy_Trv-02_Single-09.jpg" alt="projectteam" style="width:80%;">
+        <div  class="row">
+            <div class="col-3">
+                <h2>About the team</h2>
+                <!-- <img src="./images/Sandy_Trv-02_Single-09.jpg" alt="projectteam" /> -->
             </div>
-            <div class="col-5">
-                <h3>About the team</h3>
-                <h2>Who are <span style="color: #99602e">we?</span></h2>
+            <div class="col-1"></div>
+            <div class="col-8">
+                
+                <!-- <h2>Who are <span style="color: #99602e">we?</span></h2> -->
                 <p> Our team consinst of 5 students - we were using the agile management framwork SCRUM to work together on this project. We were working in a distributed team - 3 students from HTW Berlin and 2 students from UTS Sydney. </p>
-                    <h3>HTW:</h3>
-                    <li>Abdelrahman Elsharkawi Study: Competitional Engineering  Projectrole: Developer</li>
-                    <li>Katrin Malfent Study: Computer Science Projectrole: Developer</li>
-                    <li>Lara Pourabdolrahim Seresht Study: Computer Science Projectrole: Developer</li>
-                   <h3>UTS:</h3>
-                   <li>Anjali Kalambe Study: Software development Projectrole: Scrum Master</li>
-                   <li>Sima Sazmi Study: Medical Engineering Projectrole: Product Owner</li>
-                </p>
+
+                <img src="./images/TEAM1.jpeg" style="max-width: 100%; margin-bottom: 20px; border-radius: 5px;" />
+
+                <div class="row">
+                    <div class="col-6">
+                        <h3>HTW</h3>
+                        <p>
+                            <strong>Abdelrahman Elsharkawi</strong>
+                            <br />Competitional Engineering / Developer
+                        </p>
+                        <p>
+                            <strong>Katrin Malfent</strong>
+                            <br />Computer Science / Developer
+                        </p>
+                        <p>
+                            <strong>Lara Pourabdolrahim Seresht</strong>
+                            <br />Computer Science / Developer
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <h3>UTS</h3>
+                        <p>
+                            <strong>Anjap Kalambe</strong>
+                            <br />Software development / Scrum Master
+                        </p>
+                        <p>
+                            <strong>Sima Sazmi</strong>
+                            <br />Medical Engineering / Product Owner
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
-        <hr/>
+        <hr id="technologies"/>
 
-        <div id="technologies">
+        <div >
             <div class="centered">
                 <p style="color: 99602e; font-weight: bold;">Our Technologies used</p>
                 <h2>What we <span style="color: 99602e;">learned</span></h2>
                 <img src="./images/Technologies.jpg" alt="technologies" style="margin: 50px; width: 30%; margin-bottom: 60px;">
-                <div class="row">
+                <div class="row align-items-center">
                     <div class="col-2">
-                        <img src="./images/arduino.webp" alt="arduino" style="width: 60%;">
+                        <img src="./images/arduino.webp" alt="arduino">
                     </div>
                     <div class="col-2">
-                        <img src="./images/ISO_C++_Logo.svg.png" alt="esp32" style="width: 60%">
+                        <img src="./images/ISO_C++_Logo.svg.png" alt="c++">
                     </div>
                     <div class="col-2">
-                        <img src="./images/esp32.png" alt="esp32" style="width: 60%;">
+                        <img src="./images/esp32.png" alt="esp32">
                     </div>
                     <div class="col-2">
-                        <img src="./images/python.svg" alt="zoom" style="width: 60%;">
+                        <img src="./images/python.svg" alt="python">
                     </div>
                     <div class="col-2">
-                        <img src="./images/zoom.png" alt="zoom" style="width: 60%;">
+                        <img src="./images/zoom.png" alt="zoom">
                     </div>
                     <div class="col-2">
-                        <img src="./images/apache.png" alt="arduino" style="width: 60%;">
+                        <img src="./images/apache.png" alt="apache">
                     </div>
                 </div>
             </div>
         </div>
 
-       <hr>
+       <hr id="result"/>
 
-        <div id="result" class="row">
+        <div  class="row">
             <div class="col-3">
                 <div class="slider-images">
                     <img src="./images/Device.jpeg" alt="Result" class="slider-img">
@@ -158,7 +187,7 @@
                 </div>
             </div>
             <div class="col-9">
-                <h2>Result</h2>
+                <h2>Results</h2>
                 <p>The Virtual Coffee Kitchen project has been a challenging and rewarding experience for the development team. </p>
                 <p>The success of the project has been a source of pride for the development team and has confirmed their belief in the power of technology to bring people together and make a real impact.</p>
                 <p>The development process was a collaborative effort that involved close collaboration with the client, Thoughtworks, to ensure that the product met the needs of remote workers.</p>
@@ -182,9 +211,9 @@
             <div class="col-3">
                 <a href="https://www.htw-berlin.de/"><img src="./images/logo_htw.png" alt="HTW" style="height:30px;"></a>
             </div>
-            <span class="col-3">&copy;HTW Berlin</span>
-            <a class="col-3" href="https://www.htw-berlin.de/datenschutz/" style="color:white">Datenschutzerklärung</a>
-            <a class="col-3" href="https://www.htw-berlin.de/impressum/" style="color:white">Impressum</a>
+            <span class="footerFont col-3">&copy;HTW Berlin</span>
+            <a class="footerFont col-3" href="https://www.htw-berlin.de/datenschutz/" style="color:white">Datenschutzerklärung</a>
+            <a class="footerFont col-3" href="https://www.htw-berlin.de/impressum/" style="color:white">Impressum</a>
         </div>
     </div>
 </footer>
