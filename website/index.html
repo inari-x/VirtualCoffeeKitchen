@@ -8,7 +8,8 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
 
     <title>Projects</title>
 
@@ -152,25 +153,41 @@
             <div class="centered">
                 <p style="color: 99602e; font-weight: bold;">Our Technologies used</p>
                 <h2>What we <span style="color: 99602e;">learned</span></h2>
+                <div id="languages"></div>
+
+                <script>
+                    fetch("https://api.github.com/repos/inari-x/VirtualCoffeeKitchen/languages").then(response => response.json()).then(data => {
+                        console.log(data);
+                        const languages = Object.keys(data);
+                        const languageList = languages.map(language => `<li>${language}</li>`).join("");
+                        document.getElementById("languages").innerHTML = `<ul>${languageList}</ul>`;
+                        const languagePercentages = languages.map(language => data[language] / languageCount * 100);
+                        document.getElementById("languages").innerHTML += `<ul>${languagePercentages.map(percentage => `<li>${percentage.toFixed(2)}%</li>`).join("")}</ul>`;
+
+                    }).catch(error => {
+                        console.error(error);
+                    });
+                </script>
+                
                 <img src="./images/Technologies.jpg" alt="technologies" style="margin: 50px; width: 30%; margin-bottom: 60px;">
-                <div class="row align-items-center">
+                <div class="row align-items-center" style= "justify-content: center;">
                     <div class="col-2">
-                        <img src="./images/arduino.webp" alt="arduino">
+                        <img src="./images/arduino.webp" alt="arduino" style="width: 55%; height: 55%;">
                     </div>
                     <div class="col-2">
-                        <img src="./images/ISO_C++_Logo.svg.png" alt="c++">
+                        <img src="./images/ISO_C++_Logo.svg.png" alt="c++" style="width: 55%; height: 55%;">
                     </div>
                     <div class="col-2">
-                        <img src="./images/esp32.png" alt="esp32">
+                        <img src="./images/esp32.png" alt="esp32" style="width: 55%; height: 55%;">
                     </div>
                     <div class="col-2">
-                        <img src="./images/python.svg" alt="python">
+                        <img src="./images/python.svg" alt="python" style="width: 55%; height: 55%;">
                     </div>
                     <div class="col-2">
-                        <img src="./images/zoom.png" alt="zoom">
+                        <img src="./images/zoom.png" alt="zoom" style="width: 55%; height: 55%;">
                     </div>
                     <div class="col-2">
-                        <img src="./images/apache.png" alt="apache">
+                        <img src="./images/apache.png" alt="apache" style="width: 55%; height: 55%;">
                     </div>
                 </div>
             </div>
@@ -209,10 +226,12 @@
     <div class="container">
         <div class="row">
             <div class="col-3">
-                <a href="https://www.htw-berlin.de/"><img src="./images/logo_htw.png" alt="HTW" style="height:30px;"></a>
+                <a href="https://www.htw-berlin.de/"><img src="./images/HTW_logo.png" alt="HTW" style="height:20px; padding-right: 10px"></a>
+                <a href="https://www.uts.edu.au/"><img src="./images/logo-uts.png" alt="UTS" style="height:30px;"></a>
             </div>
-            <span class="footerFont col-3">&copy;HTW Berlin</span>
-            <a class="footerFont col-3" href="https://www.htw-berlin.de/datenschutz/" style="color:white">Datenschutzerklärung</a>
+            <span class="footerFont col-1">&copy;HTW Berlin</span>
+            <span class="footerFont col-1">&copy;UTS Sydney</span>
+            <a class="footerFont col-4" href="https://www.htw-berlin.de/datenschutz/" style="color:white">Datenschutzerklärung</a>
             <a class="footerFont col-3" href="https://www.htw-berlin.de/impressum/" style="color:white">Impressum</a>
         </div>
     </div>

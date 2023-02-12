@@ -8,17 +8,16 @@
 	src: url("./fonts/JosefinSlab-VariableFont_wght.ttf");
 }
 
-.text-blue {
-	color: blue;
+:root {
+	--primary-color: #ffffff;
+	--secondary-color: #373538;
+	--text-color: #da261b;
+	--text-color2: #fbb277;
 }
 
 .nav-link {
 	font-family: "Six Caps";
 	font-size: 1.7em;
-}
-
-.text-red {
-	color: red;
 }
 
 .lead {
@@ -39,38 +38,15 @@ p {
 	font-family: "Josefin Slab";
 }
 
-/* .centered_image {
-	display: table;
-	height: 200px;
-}
-
-.centered_img img {
-	display: table-cell;
-	vertical-align: middle;
-	margin: auto;
-} */
-
 .centered {
 	text-align: center;
 }
-
-/* .centered img {
-	display: inline-block;
-	margin: 0 auto;
-} */
 
 h1 {
 	font-size: 5em;
 	text-align: center;
 	font-family: "Six Caps";
 }
-
-/* .col-3 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-  } */
 
 .footerFont {
 	font-family: "Six Caps";
@@ -100,39 +76,10 @@ hr {
 
 li {
 	font-family: "Josefin Slab";
-  line-height: 2.16em;
+	line-height: 2.16em;
 	font-size: 1.3em;
-  list-style: none;
+	list-style: none;
 	/* line-height: 3.2em; */
 }
 
-.slick-slide img {
-	max-width: 20%;
-	height: 20%;
-}
 
-.slider-img {
-	width: 20px;
-	height: auto;
-	border-radius: 5px;
-}
-
-.slick-prev,
-.slick-next {
-	transform: translateY(-50%);
-	position: absolute;
-	top: 10px;
-	z-index: 1;
-	background-color: rgba(255, 255, 255, 0.5);
-	font-family: monospace;
-	font-weight: bold;
-	border: none;
-}
-
-.slick-prev {
-	left: 0;
-}
-
-.slick-next {
-	right: 0;
-}
