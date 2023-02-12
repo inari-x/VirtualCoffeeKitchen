@@ -28,9 +28,17 @@
             }
         }
 
+        @media screen and (min-width: 768px) {
+        
         main > .container {
             padding: 100px 15px 0;
         }
+    }
+
+        button.navbar-toggler {
+            display: none;
+        }
+
     </style>
 </head>
 <body class="d-flex flex-column h-100">
@@ -67,30 +75,31 @@
 <!-- Begin page content -->
 <main class="flex-shrink-0">
     <div class="container">
-        <div style="padding: 75px 0; background: url('./images/coffee-trans.png'); background-position: 50% 50%; background-repeat: no-repeat;">
-        <h1>Virtual Coffee Kitchen</h1>
+        <div class="text-wrapper">
+            <img class="mobile-logo" src="./images/coffee-full.png" style="max-width: 80%; display: block; margin: 0 auto;" />
+        <h1>Virtual <span class="text-virtualcoffeekitchen">Coffee</span> <span class="text-random">Kitchen</span></h1>
         <div class="row">
 
         <div class="important_text">      
         <p>This Project was a university collaboration between HTW Berlin and UTS Australia.</p>
-        <p>Introducing Virtual Coffee Kitchen, a digital twin designed for the modern-day remote worker. With the push of a button, you can now join a Zoom meeting and feel like you're right back in the office with your colleagues. This innovative project uses the power of an ESP32 board to bring remote workers together in a virtual coffee break setting, allowing them to stay connected, collaborate and build camaraderie even while working from home. Say goodbye to lonely home-office days and hello to a more connected and productive work environment with Virtual Coffee Kitchen.</p>
+        <p>Introducing <span class="text-random">Virtual Coffee Kitchen</span>, a digital twin designed for the modern-day remote worker. With the push of a button, you can now join a Zoom meeting and feel like you're right back in the office with your colleagues. This innovative project uses the power of an ESP32 board to bring remote workers together in a virtual coffee break setting, allowing them to stay connected, collaborate and build camaraderie even while working from home. Say goodbye to lonely home-office days and hello to a more connected and productive work environment with <span class="text-random">Virtual Coffee Kitchen</span>.</p>
         </div>
     </div>
 
     </div>
         <hr id="project"/>
 
-        <div >
+        <div>
             <div class="row">
-                <div class="col-3">
-                    <h2>Our Problem</h2>
+                <div class="col-lg-3 col-xs-12">
+                    <h2>Our <span class="text-virtualcoffeekitchen">Problem</span></h2>
                     <p>Staying in contact with colleagues during home office. Our project is sponsored by ThoughtWorks, in collaboraton with UTS Sydney and HTW Berlin.</p>
                     <img src="./images/Thoughtworks_logo.png" alt="project" style="width: 80%;">
                 </div>
-                <div class="col-1"></div>
-                <div class="col-8">
+                <div class="col-lg-1 col-xs-12"></div>
+                <div class="col-lg-8 col-xs-12">
                     <h2>Contact your colleagues with one click and start chatting!</h2>
-                        <p>The Virtual Coffee Kitchen is designed for remote workers who are looking to stay connected with their colleagues and maintain a sense of community while working from home. Whether it's for a quick catch-up or a scheduled meeting, this digital solution provides an easy and convenient way for remote workers to stay connected and productive.</p>
+                        <p>The <span class="text-random">Virtual Coffee Kitchen</span> is designed for remote workers who are looking to stay connected with their colleagues and maintain a sense of community while working from home. Whether it's for a quick catch-up or a scheduled meeting, this digital solution provides an easy and convenient way for remote workers to stay connected and productive.</p>
                         <p>The goal was to create a digital solution for remote workers to connect and collaborate in a virtual coffee break setting without relying on reading a message in a chat tool.</p>  
                         <p>With Status quo, the thoughtworkers can now join a zoom meeting with an external device placed next to their usual work station. The device is portable and runs on battery.</p>
                         <p>The wifi can be reconfigured at any time - depending if you want to work in the office or from home</p>
@@ -103,12 +112,12 @@
         <hr id="team"/>
 
         <div  class="row">
-            <div class="col-3">
-                <h2>About the team</h2>
+            <div class="col-lg-3 col-xs-12">
+                <h2>About the <span class="text-virtualcoffeekitchen">Team</span></h2>
                 <!-- <img src="./images/Sandy_Trv-02_Single-09.jpg" alt="projectteam" /> -->
             </div>
-            <div class="col-1"></div>
-            <div class="col-8">
+            <div class="col-lg-1 col-xs-12"></div>
+            <div class="col-lg-8 col-xs-12">
                 
                 <!-- <h2>Who are <span style="color: #99602e">we?</span></h2> -->
                 <p> Our team consinst of 5 students - we were using the agile management framwork SCRUM to work together on this project. We were working in a distributed team - 3 students from HTW Berlin and 2 students from UTS Sydney. </p>
@@ -116,7 +125,7 @@
                 <img src="./images/TEAM1.jpeg" style="max-width: 100%; margin-bottom: 20px; border-radius: 5px;" />
 
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-lg-6 col-xs-12">
                         <h3>HTW</h3>
                         <p>
                             <strong>Abdelrahman Elsharkawi</strong>
@@ -131,7 +140,7 @@
                             <br />Computer Science / Developer
                         </p>
                     </div>
-                    <div class="col-6">
+                    <div class="col-lg-6 col-xs-12">
                         <h3>UTS</h3>
                         <p>
                             <strong>Anjap Kalambe</strong>
@@ -149,13 +158,14 @@
 
         <hr id="technologies"/>
 
-        <div >
+        <div>
             <div class="centered">
-                <p style="color: 99602e; font-weight: bold;">Our Technologies used</p>
-                <h2>What we <span style="color: 99602e;">learned</span></h2>
-                <div id="languages"></div>
+                <!-- <p style="color: 99602e; font-weight: bold;">Our Technologies used</p> -->
+                <h2>What we <span class="text-virtualcoffeekitchen">used</span></h2>
+                <p class="text-center">Our Andruino was built in C++, and we used an Apache Server written in Python.</p>
+                <!-- <div id="languages"></div> -->
 
-                <script>
+                <!-- <script>
                     fetch("https://api.github.com/repos/inari-x/VirtualCoffeeKitchen/languages").then(response => response.json()).then(data => {
                         console.log(data);
                         const languages = Object.keys(data);
@@ -167,45 +177,69 @@
                     }).catch(error => {
                         console.error(error);
                     });
-                </script>
+                </script> -->
                 
-                <img src="./images/Technologies.jpg" alt="technologies" style="margin: 50px; width: 30%; margin-bottom: 60px;">
-                <div class="row align-items-center" style= "justify-content: center;">
-                    <div class="col-2">
-                        <img src="./images/arduino.webp" alt="arduino" style="width: 55%; height: 55%;">
+                <div class="row mt-5 align-items-center" style= "justify-content: center;">
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/arduino.webp" alt="arduino" style="max-width: 80%; height: auto;">
                     </div>
-                    <div class="col-2">
-                        <img src="./images/ISO_C++_Logo.svg.png" alt="c++" style="width: 55%; height: 55%;">
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/ISO_C++_Logo.svg.png" alt="c++" style="max-width: 70%; height: auto;">
                     </div>
-                    <div class="col-2">
-                        <img src="./images/esp32.png" alt="esp32" style="width: 55%; height: 55%;">
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/esp32.png" alt="esp32" style="max-width: 80%; height: auto;">
                     </div>
-                    <div class="col-2">
-                        <img src="./images/python.svg" alt="python" style="width: 55%; height: 55%;">
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/python.svg" alt="python" style="max-width: 80%; height: auto;">
                     </div>
-                    <div class="col-2">
-                        <img src="./images/zoom.png" alt="zoom" style="width: 55%; height: 55%;">
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/zoom.png" alt="zoom" style="max-width: 80%; height: auto;">
                     </div>
-                    <div class="col-2">
-                        <img src="./images/apache.png" alt="apache" style="width: 55%; height: 55%;">
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/apache.png" alt="apache" style="max-width: 80%; height: auto;">
                     </div>
                 </div>
+                <div class="row mt-5 align-items-center" style= "justify-content: center;">
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/logo-html5.png" style="max-width: 80%; height: auto;" />
+                    </div>
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/logo-css3.webp" style="max-width: 70%; height: auto;" />
+                    </div>
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/logo-javascript.png" style="max-width: 80%; height: auto;" />
+                    </div>
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/logo-php.png" style="max-width: 80%; height: auto;" />
+                    </div>
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/logo-docker.webp" style="max-width: 80%; height: auto;" >
+                    </div>
+                    <div class="col-2 col-xs-4">
+                        <img src="./images/Github-Logo.png" style="max-width: 80%; height: auto;" />
+                        </div>
+                </div>
+                
             </div>
         </div>
 
        <hr id="result"/>
 
-        <div  class="row">
-            <div class="col-3">
+        <div class="row">
+            <div class="col-lg-3 col-xs-12">
+                <h2>Our <span class="text-virtualcoffeekitchen">Results</span></h2>
                 <div class="slider-images">
                     <img src="./images/Device.jpeg" alt="Result" class="slider-img">
                     <img src="./images/Device_Button.jpg" alt="Result" class="slider-img">
                     <img src="./images/Parts.jpeg" alt="Result" class="slider-img">
                 </div>
             </div>
-            <div class="col-9">
-                <h2>Results</h2>
-                <p>The Virtual Coffee Kitchen project has been a challenging and rewarding experience for the development team. </p>
+            <div class="col-lg-1 col-xs-12">
+
+            </div>
+            <div class="col-lg-8 col-xs-12">
+                <h2>Here is what we figured out</h2>
+                <p>The <span class="text-random">Virtual Coffee Kitchen</span> project has been a challenging and rewarding experience for the development team. </p>
                 <p>The success of the project has been a source of pride for the development team and has confirmed their belief in the power of technology to bring people together and make a real impact.</p>
                 <p>The development process was a collaborative effort that involved close collaboration with the client, Thoughtworks, to ensure that the product met the needs of remote workers.</p>
                 <p>The team is proud to have created a product that is not only innovative but also truly makes a difference in the lives of remote workers. 
@@ -222,17 +256,18 @@
         
 </main>
 
-<footer id="myfooter" class="footer mt-auto py-3 bg-dark">
-    <div class="container">
+<footer id="myfooter" class="footer mt-auto p-3 bg-dark">
+    <div class="">
         <div class="row">
-            <div class="col-3">
+            <div class="col-lg-3 col-xs-12">
                 <a href="https://www.htw-berlin.de/"><img src="./images/HTW_logo.png" alt="HTW" style="height:20px; padding-right: 10px"></a>
                 <a href="https://www.uts.edu.au/"><img src="./images/logo-uts.png" alt="UTS" style="height:30px;"></a>
             </div>
-            <span class="footerFont col-1">&copy;HTW Berlin</span>
-            <span class="footerFont col-1">&copy;UTS Sydney</span>
-            <a class="footerFont col-4" href="https://www.htw-berlin.de/datenschutz/" style="color:white">Datenschutzerklärung</a>
-            <a class="footerFont col-3" href="https://www.htw-berlin.de/impressum/" style="color:white">Impressum</a>
+            <!-- <span class="footerFont col-lg-1 col-xs-12">&copy;HTW Berlin</span>
+            <span class="footerFont col-lg-1 col-xs-12">&copy;UTS Sydney</span> -->
+            <a class="footerFont col-lg-3 col-xs-12" href="https://www.htw-berlin.de/datenschutz/">Datenschutzerklärung</a>
+            <a class="footerFont col-lg-2 col-xs-12" href="https://www.htw-berlin.de/impressum/" >Impressum</a>
+            <a class="footerFont col-lg-2 col-xs-12" href="https://github.com/inari-x/VirtualCoffeeKitchen">@inari-x/virtualcoffeekitchen</a>
         </div>
     </div>
 </footer>
@@ -255,7 +290,6 @@
 
 <style>
     .slider-img {
-        width: 20px;
         height: auto;
         border-radius: 5px;
 

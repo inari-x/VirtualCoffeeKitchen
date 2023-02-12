@@ -8,11 +8,12 @@
 	src: url("./fonts/JosefinSlab-VariableFont_wght.ttf");
 }
 
-:root {
-	--primary-color: #ffffff;
-	--secondary-color: #373538;
-	--text-color: #da261b;
-	--text-color2: #fbb277;
+.text-virtualcoffeekitchen {
+	color: #99602e;
+}
+
+.text-random {
+	color: #2d4452;
 }
 
 .nav-link {
@@ -34,7 +35,7 @@
 
 p {
 	line-height: 2.16em;
-	font-size: 1.3em;
+	font-size: 1.416em;
 	font-family: "Josefin Slab";
 }
 
@@ -46,11 +47,18 @@ h1 {
 	font-size: 5em;
 	text-align: center;
 	font-family: "Six Caps";
+	margin: 25px 0;
 }
 
 .footerFont {
 	font-family: "Six Caps";
 	font-size: 1.7em;
+	text-decoration: none !important;
+	color: rgba(255,255,255,.55);
+}
+
+.footerFont:hover {
+	color: rgba(255,255,255,.75);
 }
 
 .col-2 {
@@ -61,6 +69,7 @@ h1 {
 h2 {
 	font-size: 4em;
 	font-family: "Six Caps";
+	margin: 25px 0;
 }
 
 h3 {
@@ -71,7 +80,25 @@ h3 {
 
 hr {
 	border: 1px solid #000;
-	margin: 120px 0;
+}
+
+.text-wrapper {
+	padding-top: 75px;
+}
+
+@media screen and (min-width: 768px) {
+	hr {
+		margin: 120px 0;
+	}
+	.text-wrapper {
+	padding: 75px 0; 
+	background: url('./images/coffee-trans.png'); 
+	background-position: 50% 50%; 
+	background-repeat: no-repeat;
+	}
+	.mobile-logo {
+		display: none !important; /* hides on desktop */
+	}
 }
 
 li {
