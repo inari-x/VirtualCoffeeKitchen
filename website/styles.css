@@ -50,6 +50,10 @@ h1 {
 	margin: 25px 0;
 }
 
+#myfooter {
+	background: url(./images/wood-texture.png) #212529;
+}
+
 .footerFont {
 	font-family: "Six Caps";
 	font-size: 1.7em;
