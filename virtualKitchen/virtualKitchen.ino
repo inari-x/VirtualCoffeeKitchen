@@ -359,6 +359,34 @@ void setupAP(void)
   Heltec.display->display();
   launchWeb();
 }
+void handleCSS() {
+  String css = 
+  "form {"
+    "display: flex;"
+    "flex-direction: column;"
+    "align-items: flex-start;"
+    "margin: 20px;"
+  "}"
+  "label, input[type='submit'] {"
+    "margin-top: 10px;"
+  "}"
+  "input[type='text'] {"
+    "width: 200px;"
+    "height: 30px;"
+    "padding: 5px;"
+    "font-size: 16px;"
+  "}"
+  "input[type='submit'] {"
+    "background-color: blue;"
+    "color: white;"
+    "width: 100px;"
+    "height: 40px;"
+    "font-size: 20px;"
+  "}";
+
+  server.send(200, "text/css", css);
+}
+
 void createWebServer()
 {
   ip = WiFi.softAPIP();
@@ -371,9 +399,7 @@ void createWebServer()
   Heltec.display->display();
   {
     server.on("/", []() {
-      // IPAddress ip = WiFi.softAPIP();
-      // String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-      content = "<!DOCTYPE HTML>\r\n<html>Welcome to Wifi Credentials Update page";
+      content = "<!DOCTYPE HTML>\r\n<html>Welcome to Wifi Credentials Update page <head><link rel='stylesheet' type='text/css' href='/style.css'></head>";
       content += "<form action=\"/scan\" method=\"POST\"><input type=\"submit\" value=\"scan\"></form>";
       content += ipStr;
       content += "<p>";
