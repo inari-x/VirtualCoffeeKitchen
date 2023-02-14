@@ -370,37 +370,21 @@ void createWebServer()
   Heltec.display->drawString(35, 43, ipStr);
   Heltec.display->display();
   {
-    server.on("/", []() {
-      // IPAddress ip = WiFi.softAPIP();
-      // String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-      content = "<!DOCTYPE HTML>\r\n<html>Welcome to Wifi Credentials Update page";
-      content += "<form action=\"/scan\" method=\"POST\"><input type=\"submit\" value=\"scan\"></form>";
-      content += ipStr;
-      content += "<p>";
-      content += st;
-      content += "</p><form method='get' action='setting'><label>SSID: </label><input name='ssid' length=32><label>  PASS: </label><input name='pass' length=64></br><label>EMAIL: </label><input name='email' length=64><input type='submit'></form>";
-      content += "</html>";
-      server.send(200, "text/html", content);
-    });
-    server.on("/scan", []() {
-      // IPAddress ip = WiFi.softAPIP();
-      // String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-      content = "<!DOCTYPE HTML>\r\n<html>go back";
-      server.send(200, "text/html", content);
-    });
    server.on("/", []() {
   IPAddress ip = WiFi.softAPIP();
   String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-  content = "<!DOCTYPE HTML>\r\n<html><h1>Welcome to the Wifi Credentials Update page</h1>";
+  content = "<!DOCTYPE HTML>\r\n<html>";
+  content += "<head><style>body { font-family: Arial, sans-serif; text-align: center; }</style>";
+  content += "<style>h1 { background-color: darkblue; color: white; padding: 20px; }</style></head>";
+  content += "<h1>Welcome to the Wifi Credentials Update page</h1>";
   content += "<p>To update your wifi credentials, please click the 'Scan' button below:</p>";
-  content += "<form action=\"/scan\" method=\"POST\"><input type=\"submit\" value=\"Scan\"></form>";
-  content += "<p>Your IP address: " + ipStr + "</p>";
-  content += "<p>" + st + "</p>";
+  content += "<form action='/scan' method='POST'><button style='background-color: darkblue; color: white; padding: 10px 20px; border: none; border-radius: 5px;'>Scan</button></form>";
+  content += "<p style='text-align: center; line-height: 1.5em;'>" + st + "</p>";
   content += "<p>Enter your new wifi credentials:</p><form method='get' action='setting'>";
   content += "<label>SSID: </label><input name='ssid' length=32><br><br>";
   content += "<label>Password: </label><input name='pass' length=64><br><br>";
-  content += "<input type='submit' value='Save'></form>";
-  content += "</html>";
+  content += "<button style='background-color: darkblue; color: white; padding: 10px 20px; border: none; border-radius: 5px;'>Save</button></form>";
+  content += "</div></body></html>";
   server.send(200, "text/html", content);
 });
 
@@ -408,7 +392,7 @@ server.on("/scan", []() {
   //setupAP();
   IPAddress ip = WiFi.softAPIP();
   String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-  content = "<!DOCTYPE HTML>\r\n<html><p><a href='/'>Go back</a></p>";
+  content = "<!DOCTYPE HTML>\r\n<html><head><style>body { font-family: Arial, sans-serif; text-align: center; }</style></head><body><p><a href='/'>Go back</a></p></body></html>";
   server.send(200, "text/html", content);
 });
 
