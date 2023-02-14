@@ -9,10 +9,8 @@
 #include <iostream>   
 #include <string>
 #include "images.h"
-
 #define BUTTON_PIN 0
 #define WIFI_ICON_16x16 "WIFI_ICON_16x16"
-
 //Variables
 int CurrentParticipants = 10;
 int PrevParticipants = 0;
@@ -37,17 +35,16 @@ void launchWeb(void);
 void setupAP(void);
 //Establishing Local server at port 80
 WebServer server(80);
-
 #include "driver/rtc_io.h"
 #define BUTTON_PIN_BITMASK 0x200000000 // 2^33 in hex
-
 RTC_DATA_ATTR int bootCount = 0;
-
+/*
+Method to print the reason by which ESP32
+has been awaken from sleep
+*/
 void print_wakeup_reason(){
   esp_sleep_wakeup_cause_t wakeup_reason;
-
   wakeup_reason = esp_sleep_get_wakeup_cause();
-
   switch(wakeup_reason)
   {
     case ESP_SLEEP_WAKEUP_EXT0 : Serial.println("Wakeup caused by external signal using RTC_IO"); break;
@@ -58,7 +55,6 @@ void print_wakeup_reason(){
     default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
   }
 }
-
 void isr()
 {
   if (digitalRead(0) == 0)
@@ -95,19 +91,18 @@ int getCurrentParticipants(){
   Serial.println("Participants count: " + String(participants));
   return participants;
   }
-
-
 void displayParticipantsCount(int count){
+  // Heltec.display->setFont (ArialMT_Plain_24);
+  //   Heltec.display->drawString(50, 25,String(count));
+  //   Heltec.display->display();
     Heltec.display->clear();
     Heltec.display->setFont(ArialMT_Plain_24);
     Heltec.display->drawString(50, 25, String(participants));
     Heltec.display->display();
-
     Heltec.display->setFont(ArialMT_Plain_10);
     Heltec.display -> drawXbm(110,0,logo_width,logo_height,(const unsigned char *)logo_bits);
     Heltec.display -> display();
 }
-
 void flash(){
   for (int i = 0; i < 5; i++){
       Heltec.display -> setBrightness(255);
@@ -120,8 +115,6 @@ void flash(){
     Heltec.display -> setBrightness(255);
     Heltec.display -> clear();
 }
-
-
 void displayBatteryAndWifi() {
   int Millivolts = map (analogRead(37), 0, 3000, 150, 2450);
   int batteryVoltage = Millivolts;
@@ -144,9 +137,6 @@ void displayBatteryAndWifi() {
   Heltec.display->drawString(0, 0, batteryString);
   Heltec.display->display();
 }
-
-
-
 void setup()
 {
   Serial.begin(115200); //Initialising if(DEBUG)Serial Monitor
@@ -183,7 +173,6 @@ void setup()
   rtc_gpio_deinit(GPIO_NUM_2);
   Serial.begin(115200);
   delay(1000); //Take some time to open up the Serial Monitor
-
   //Increment boot number and print it every reboot
   ++bootCount;
   Serial.println("Boot number: " + String(bootCount));
@@ -192,13 +181,17 @@ void setup()
   rtc_gpio_pullup_en(GPIO_NUM_2);
   esp_sleep_enable_ext0_wakeup(GPIO_NUM_2,1); //1 = High, 0 = Low
 }
-
+void drawWifiConnection() {
+    Heltec.display->clear();
+    Heltec.display->setFont(ArialMT_Plain_10);
+    Heltec.display->drawString(10, 0, "connected to:" + esid);
+    Heltec.display->display();
+}
 void drawParticipants() {
     Heltec.display->setFont(ArialMT_Plain_16);
     Heltec.display->drawString(0, 20, "zoom: ");
     Heltec.display->display();
 }
-
 void loop() {
   displayBatteryAndWifi();
   if(totalPressTime>0 && totalPressTime<4000 && buttonPressed==1)
@@ -217,6 +210,9 @@ void loop() {
     Serial.println("The access point is set up");
     while ((WiFi.status() != WL_CONNECTED))
     {
+      // Heltec.display->clear();
+      // Heltec.display->drawString(10, 0, "Please go to the ip");
+      // Heltec.display->display();
       delay(10);
       server.handleClient();
     }
@@ -229,7 +225,6 @@ void loop() {
   }
   delay(100);
 }
-
 void doRising()
 {
   totalPressTime = millis()-pressedTime;
@@ -238,13 +233,12 @@ void doRising()
   Serial.printf("total pressed time %lu \n",totalPressTime);
   delay(2000);
 }
-
 void doFalling()
 {
   pressedTime = millis();
   Serial.printf("millis in interrupt %lu \n",millis());
 }
-
+//----------------------------------------------- Fuctions used for WiFi credentials saving and connecting to it which you do not need to change
 bool testWifi(void) {
   int c = 0;
   //Serial.println("Waiting for Wifi to connect");
@@ -268,7 +262,17 @@ void launchWeb()
   // Start the server
   server.begin();
 }
-
+void setupAP(void)
+{
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect();
+  WiFi.softAP("Virtual Coffe Kitchen");
+  Heltec.display-> clear();
+  Heltec.display->drawString(15, 25, "Please connect to:");
+  Heltec.display->drawString(13, 34, "Virtual Coffe Kitchen");
+  Heltec.display->display();
+  launchWeb();
+}
 String scanNetwork(){
   delay(100);
   String  st;
@@ -308,48 +312,6 @@ String scanNetwork(){
   return st;  
   delay(100);  
 }
-
-void setupAP(void)
-{
-  WiFi.mode(WIFI_STA);
-  WiFi.disconnect();
-  WiFi.softAP("Virtual Coffe Kitchen");
-  Heltec.display-> clear();
-  Heltec.display->drawString(15, 25, "Please connect to:");
-  Heltec.display->drawString(13, 34, "Virtual Coffe Kitchen");
-  Heltec.display->display();
-  launchWeb();
-}
-void handleCSS() {
-  String css = 
-  "form {"
-    "display: flex;"
-    "flex-direction: column;"
-    "align-items: flex-start;"
-    "margin: 20px;"
-  "}"
-  "label, input[type='submit'] {"
-    "margin-top: 10px;"
-  "}"
-  "input[type='text'] {"
-    "width: 200px;"
-    "height: 30px;"
-    "padding: 5px;"
-    "font-size: 16px;"
-  "}"
-  "input[type='submit'] {"
-    "background-color: blue;"
-    "color: white;"
-    "width: 100px;"
-    "height: 40px;"
-    "font-size: 20px;"
-  "}";
-
-  server.send(200, "text/css", css);
-}
-
-
-
 void createWebServer()
 {
   ip = WiFi.softAPIP();
@@ -361,15 +323,24 @@ void createWebServer()
   Heltec.display->drawString(35, 43, ipStr);
   Heltec.display->display();
   {
-    server.on("/", []() {
-      content = "<!DOCTYPE HTML>\r\n<html>Welcome to Wifi Credentials Update page <head><link rel='stylesheet' type='text/css' href='/style.css'></head>";
-      content += "<p>";
-      content += scanNetwork();
-      content += "</p><form method='get' action='setting'><label>SSID: </label><input name='ssid' length=32><label>  PASS: </label><input name='pass' length=64></br><label>EMAIL: </label><input name='email' length=64><input type='submit'></form>";
-      content += "</html>";
-      server.send(200, "text/html", content);
-    });   
-  server.on("/setting", []() {
+   server.on("/", []() {
+  IPAddress ip = WiFi.softAPIP();
+  String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
+  content = "<!DOCTYPE HTML>\r\n<html>";
+  content += "<head><style>body { font-family: Arial, sans-serif; text-align: center; }</style>";
+  content += "<style>h1 { background-color: darkblue; color: white; padding: 20px; }</style></head>";
+  content += "<h1>Welcome to the Wifi Credentials Update page</h1>";
+  content += "<p>To update your wifi credentials, please click the 'Scan' button below:</p>";
+  content += "<p style='text-align: center;'>" + scanNetwork() + "</p>";
+  content += "<p>Enter your new wifi credentials:</p><form method='get' action='setting'>";
+  content += "<label>SSID: </label><input name='ssid' length=32><br><br>";
+  content += "<label>Password: </label><input name='pass' length=64><br><br>";
+  content += "<label>Email: </label><input name='email' length=64><br><br>";
+  content += "<button style='background-color: darkblue; color: white; padding: 10px 20px; border: none; border-radius: 5px;'>Save</button></form>";
+  content += "</div></body></html>";
+  server.send(200, "text/html", content);
+});
+server.on("/setting", []() {
   String qsid = server.arg("ssid");
   String qpass = server.arg("pass");
   String qemail = server.arg("email");
@@ -401,7 +372,6 @@ void createWebServer()
       Serial.print("Wrote: ");
       Serial.println(qemail[i]);
     }
-    
     EEPROM.commit();
     content = "{\"Success\":\"Saved to EEPROM. Resetting to boot into new wifi wifi\"}";
         statusCode = 200;
