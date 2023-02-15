@@ -1,7 +1,5 @@
 from flask import Flask, request
-from datetime import datetime
 import requests
-import datetime
 import os
 import jwt
 import base64
@@ -27,54 +25,41 @@ def post_request(jsn, api):
     'authorization': f"bearer {get_zoom_token()}", 'content-type': 'application/json'}, json = jsn)
   return r
 
-def post_chat_message(join_url, recipient, recipient_email):
+def post_chat_message(recipient_email, tech_user):
   jsn = {
-    'message': f"This is your coffee kitchen join URL: {join_url}",
+    'message': f"This is your coffee kitchen join URL: https://us06web.zoom.us/j/5024947364?pwd=OUw2ZnE3VFFXcjVZKzJkdHJidXF2Zz09",
     'to_contact': f"{recipient_email}"
   }
-  post_response = post_request(jsn, (f"chat/users/{recipient}/messages"))
+  post_response = post_request(jsn, (f"chat/users/{tech_user}/messages"))
   return post_response
 
-"""def participant_count(meeting_id):
-  r = requests.get(f"{https:/api.zoom.us/v2/metrics/meetings/{meeting_id}/participants)
-  participants =  r.json().get('participants')
+def participant_count(meeting_id):
+  r = requests.get(f"https://api.zoom.us/v2/metrics/meetings", headers = {
+    'authorization': f"bearer {get_zoom_token()}"})
+  """participants =  r.json().get('participants')
   participant_number = 0
-  for each p in participants:
+  for p in participants:
     if 'leave_time' in p:
-      participant_number += 1
-return participant_number"""
+      participant_number += 1"""
+  json = r.json()
+  meeting = json.get('meetings')
+  participants = meeting[0].get('participants')
+  return str(participants)
 
 @app.route('/')
 def hello_world():
   return 'Hello, Docker!'
 
 
-"""@app.route('/participant-count')
-  return participant_count()"""
+@app.route('/participant-count')
+def count_participants():
+  return participant_count('5024947364')
 
-@app.route('/create-meeting', methods=['POST'])
+@app.route('/join-meeting', methods=['POST'])
 def zoom_api():
-  tech_user = os.environ['TECH_USER']
-  now = datetime.datetime.now()
-  start_time = now.strftime("%Y-%m-%dT%H:%M:%SZ")
   recipient_email = request.form.get('email')
-
-  jsn = {
-    'topic': 'Coffee Kitchen',
-    'type': '2',
-    'start_time': f"{start_time}",
-    'duration': '240',
-    'timezone': 'Australia/Sydney',
-    'password': f"{os.environ['ZOOM_PASSWORD']}",
-    'agenda': 'Chat',
-    'settings': {
-      'join_before_host': True,
-      'waiting_room': False
-      }
-    }
-  r = post_request(jsn, f"users/{tech_user}/meetings")
-  join_url = r.json().get('join_url')
-  chat_message_response = post_chat_message(join_url, tech_user, recipient_email)
+  tech_user = os.environ['TECH_USER']
+  chat_message_response = post_chat_message(recipient_email, tech_user)
   return chat_message_response.json()
 
 if __name__ == '__main__':
