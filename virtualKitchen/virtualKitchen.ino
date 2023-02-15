@@ -71,6 +71,7 @@ int getCurrentParticipants()
   HTTPClient http;
   http.begin("http://141.45.146.242:80/participant-count");
   int httpCode = http.GET();
+  Serial.println(httpCode);
   if (httpCode != 200) {
     Serial.println("Error making API request, HTTP code: " + String(httpCode));
     return -1;
@@ -105,13 +106,13 @@ void displayParticipantsCount(int count)
 
 void flash()
 {
-  for (int i = 0; i < 5; i++){
+  for (int i = 0; i < 10; i++){
       Heltec.display -> setBrightness(255);
       Heltec.display -> drawXbm(0,0,flasher_width,flasher_height,(const unsigned char *)flasher);
       Heltec.display -> display();
-      delay(500);
+      delay(250);
       Heltec.display -> setBrightness(0);
-      delay(500);
+      delay(250);
     }
     Heltec.display -> setBrightness(255);
     Heltec.display -> clear();
@@ -191,13 +192,28 @@ void loop()
   {
     buttonPressed=0;
     totalPressTime=0;
-    Serial.println("Joining the zoom meeting");
     Heltec.display->clear();
     Heltec.display->setFont(ArialMT_Plain_16);    
-    Heltec.display->drawString(10, 23, "Joining zoom");
+    Heltec.display->drawString(10, 23, "please wait");
     Heltec.display->display();
-    Heltec.display->setFont(ArialMT_Plain_10);
-    delay(2000);    
+    HTTPClient http;
+    http.begin("http://141.45.146.242:80/join-meeting");
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    String payload = "email=daad.thoughts@gmail.com"; //for non static = payload = "email=" + eemail
+    int httpCode = http.POST(payload);
+    Serial.println("Joining the zoom meeting");
+    // Check if the request was successsful
+    if (httpCode == HTTP_CODE_OK) {
+      Heltec.display->clear();   
+      Heltec.display->drawString(10, 23, "Joining zoom");
+      Heltec.display->display();
+      Heltec.display->setFont(ArialMT_Plain_10);
+      // Read the response data
+      String response = http.getString();
+      Serial.println(response);
+    }
+    // Cleanup
+    http.end();
   }
   else if(totalPressTime>=3000 &&totalPressTime<=8000 && buttonPressed==1){
     buttonPressed = 0;
@@ -222,7 +238,8 @@ void loop()
     Serial.println("Going to sleep now");
     esp_deep_sleep_start();
   }
-  displayBatteryAndWifi();   
+  displayBatteryAndWifi();
+
 }
 
 void doRising()
