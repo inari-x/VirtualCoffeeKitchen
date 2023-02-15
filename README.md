@@ -1,9 +1,6 @@
 # VirtualCoffeeKitchen
 Digital twin for a virtual meeting room to interact with co-workers
 
-# VirtualCoffeeKitchen
-Digital twin for a virtual meeting room to interact with co-workers
-
 ```mermaid
 graph TB
   subgraph microcontroller
