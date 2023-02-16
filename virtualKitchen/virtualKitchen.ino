@@ -12,9 +12,6 @@
 
 int PrevParticipants = 0;
 int statusCode;                                //for config result
-// const char* ssid = "Default SSID";
-// const char* passphrase = "Default passord";  why are you here
-// const char* email = "Default email";
 unsigned long pressedTime  = 0;
 unsigned long totalPressTime = 0;
 int buttonPressed = 0;
@@ -119,9 +116,8 @@ void flash()
 
 void displayBatteryAndWifi() 
 {
-  int Millivolts = map (analogRead(37), 0, 3000, 150, 2450);
-  int batteryVoltage = Millivolts;
-  int batteryLevel = (batteryVoltage / 1024) * 100;
+  Serial.println(analogRead(37));
+  int batteryLevel = round((analogRead(37) / 4095.0) * 100);
   String batteryString = String(batteryLevel) + "%";
   Heltec.display->clear();
   if (testWifi()) {
@@ -210,7 +206,6 @@ void loop()
       delay(10);
       server.handleClient();
     }
-    
   }
   else if (totalPressTime>8000 && buttonPressed==1)
   {
@@ -242,7 +237,6 @@ void doFalling()
 bool testWifi(void) 
 {
   int c = 0;
-  //Serial.println("Waiting for Wifi to connect");
   while ( c < 10 ) {
     if (WiFi.status() == WL_CONNECTED)
     {
