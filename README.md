@@ -18,6 +18,11 @@ graph TB
 ```
 # Technology used
 
+# Hardware
+- Heltec WiFi Kit 32 development board
+- 1000 mAh LiPo battery
+- 3D printed enclosure (https://www.thingiverse.com/thing:3527010/files)
+
 # Libraries
 The code uses the following libraries:
 
@@ -87,38 +92,54 @@ Setup Function
 
 # Helper functions
  
-testWifi() - A function that tests WiFi connectivity by attempting to connect to a default WiFi network. If the connection is successful, the function returns true. If the connection is unsuccessful, the function returns false.
-launchWeb() - A function that launches a web server on the device and waits for configuration data to be sent to it via HTTP. If the configuration data is received, the function saves the data to EEPROM and resets the device.
-setupAP() - A function that sets up the device as a WiFi access point and launches a web server on it to allow for configuration. If the configuration is successful, the function saves the data to EEPROM and resets the device.
-print_wakeup_reason() - A function that prints the reason for which the device has been awakened from sleep.
-isr() - An interrupt service routine that is called when there is a change in the state of the button. If the button is pressed, it calls the doFalling() function. If the button is released, it calls the doRising() function.
-getCurrentParticipants() - A function that fetches the current number of participants by making an HTTP GET request to a remote server. If the request is successful, the function returns the number of participants as an integer. If the request is unsuccessful, the function returns -1.
-displayParticipantsCount(int count) - A function that displays the current number of participants on the OLED screen.
-flash() - A function that flashes the OLED screen to indicate an increase in the number of participants.
+- testWifi() - A function that tests WiFi connectivity by attempting to connect to a default WiFi network. If the connection is successful, the function returns true. If the connection is unsuccessful, the function returns false.
+- launchWeb() - A function that launches a web server on the device and waits for configuration data to be sent to it via HTTP. If the configuration data is received, the function saves the data to EEPROM and resets the device.
+- setupAP() - A function that sets up the device as a WiFi access point and launches a web server on it to allow for configuration. If the configuration is successful, the function saves the data to EEPROM and resets the device.
+- print_wakeup_reason() - A function that prints the reason for which the device has been awakened from sleep.
+- isr() - An interrupt service routine that is called when there is a change in the state of the button. If the button is pressed, it calls the doFalling() function. If the button is released, it calls the doRising() function.
+- getCurrentParticipants() - A function that fetches the current number of participants by making an HTTP GET request to a remote server. If the request is successful, the function returns the number of participants as an integer. If the request is unsuccessful, the function returns -1.
+- displayParticipantsCount(int count) - A function that displays the current number of participants on the OLED screen.
+- flash() - A function that flashes the OLED screen to indicate an increase in the number of participants.
 
 # Event functions
 
-doFalling() - A function that is called when the button is pressed. This function increments the count of participants, displays the updated count on the OLED screen using the displayParticipantsCount() function, and flashes the OLED screen using the flash() function.
+- doFalling() - A function that is called when the button is pressed. This function increments the count of participants, displays the updated count on the OLED screen using the displayParticipantsCount() function, and flashes the OLED screen using the flash() function.
 
-doRising() - A function that is called when the button is released. This function sends the updated count of participants to a remote server via an HTTP POST request. If the request is successful, the function prints a success message to the serial monitor. If the request is unsuccessful, the function prints an error message to the serial monitor.
+- doRising() - A function that is called when the button is released. This function sends the updated count of participants to a remote server via an HTTP POST request. If the request is successful, the function prints a success message to the serial monitor. If the request is unsuccessful, the function prints an error message to the serial monitor.
 
 # Main function
 
-setup() - The main function of the program. This function initializes the serial monitor, OLED screen, and button. It then checks if the device has been awakened from sleep and prints the wakeup reason using the print_wakeup_reason() function. If the device has been awakened due to a button press, it calls the doFalling() function. If the device has been awakened due to a timer interrupt, it calls the doRising() function. If the device has not been awakened, it checks for WiFi connectivity using the testWifi() function. If WiFi is available, it fetches the current participant count using the getCurrentParticipants() function and displays it on the OLED screen. If WiFi is not available, it sets up the device as a WiFi access point using the setupAP() function and launches a web server to allow for configuration. If the configuration data is received, it saves the data to EEPROM and resets the device.
+- setup() - The main function of the program. This function initializes the serial monitor, OLED screen, and button. It then checks if the device has been awakened from sleep and prints the wakeup reason using the print_wakeup_reason() function. If the device has been awakened due to a button press, it calls the doFalling() function. If the device has been awakened due to a timer interrupt, it calls the doRising() function. If the device has not been awakened, it checks for WiFi connectivity using the testWifi() function. If WiFi is available, it fetches the current participant count using the getCurrentParticipants() function and displays it on the OLED screen. If WiFi is not available, it sets up the device as a WiFi access point using the setupAP() function and launches a web server to allow for configuration. If the configuration data is received, it saves the data to EEPROM and resets the device.
 
 # How to setup the Work Environment
 1. Download and install the Arduino IDE from https://www.arduino.cc/en/Main/Software
 2. Download and install the ESP32 board support packages
 
-# How to run the code
+# How to run the code 
+1. Open the Arduino IDE and open the file "virtualKitchen.ino" from the "virtualKitchen" folder.
+2. Connect the ESP32 to your computer using a USB cable.
+3. Select the correct board and port in the Arduino IDE. (Tools -> Board -> ESP32 Arduino -> Heltec WiFi Kit 32, Tools -> Port -> /dev/cu.SLAB_USBtoUART (for Mac) or COM3 (for Windows))
+4. Click the "Upload" button to upload the code to the ESP32.
+5. Open the serial monitor and set the baud rate to 115200.
+6. Press the button on the ESP32 to start the program.
+7. If the ESP32 is not connected to a WiFi network, it will set up a WiFi access point and launch a web server to allow for configuration. Connect to the WiFi network "ESP32-Config" and open a web browser. Enter the WiFi SSID, password, and email address and click "Submit". The ESP32 will save the configuration data to EEPROM and reset.
+8. If the ESP32 is connected to a WiFi network, it will fetch the current number of participants from a remote server and display it on the OLED screen. Press the button to increment the number of participants and send the updated count to the remote server. The OLED screen will flash to indicate that the number of participants has increased.
 
-# How to use the code
+
+# How to use the code in your own project
+1. Download the code from the "virtualKitchen" folder.
+2. Open the Arduino IDE and open the file "virtualKitchen.ino" from the "virtualKitchen" folder.
+3. Change the WiFi SSID, password, and email address to your own values.
+4. Change the URL of the remote server to your own URL.
+5. Change the number of participants to your own value.
 
 # How to contribute
+1. Fork the repository.
+2. Make the changes in your forked repository.
+3. Create a pull request.
 
 # How to report bugs
-
-# 
+1. Create an issue in the repository.
 
 # Conclusion
 
