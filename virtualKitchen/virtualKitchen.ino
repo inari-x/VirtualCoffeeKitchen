@@ -227,7 +227,7 @@ void loop()
       server.handleClient();
     }
   }
-  else if (totalPressTime>8000 && buttonPressed==1)
+  else if (totalPressTime>9000 && buttonPressed==1)
   {
     Heltec.display->clear();
     Heltec.display->setFont(ArialMT_Plain_16); 
