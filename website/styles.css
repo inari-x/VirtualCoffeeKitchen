@@ -1,0 +1,116 @@
+@font-face {
+	font-family: "Six Caps";
+	src: url("./fonts/SixCaps-Regular.ttf");
+}
+
+@font-face {
+	font-family: "Josefin Slab";
+	src: url("./fonts/JosefinSlab-VariableFont_wght.ttf");
+}
+
+.text-virtualcoffeekitchen {
+	color: #99602e;
+}
+
+.text-random {
+	color: #2d4452;
+}
+
+.nav-link {
+	font-family: "Six Caps";
+	font-size: 1.7em;
+}
+
+.lead {
+	display: flex;
+	margin: 50px;
+}
+
+.important_text {
+	/* line-height: 1.16em; */
+	/* font-size: 1.3em; */
+	text-align: center;
+	font-family: "Josefin Slab";
+}
+
+p {
+	line-height: 2.16em;
+	font-size: 1.416em;
+	font-family: "Josefin Slab";
+}
+
+.centered {
+	text-align: center;
+}
+
+h1 {
+	font-size: 5em;
+	text-align: center;
+	font-family: "Six Caps";
+	margin: 25px 0;
+}
+
+#myfooter {
+	background: url(./images/wood-texture.png) #212529;
+}
+
+.footerFont {
+	font-family: "Six Caps";
+	font-size: 1.7em;
+	text-decoration: none !important;
+	color: rgba(255,255,255,.55);
+}
+
+.footerFont:hover {
+	color: rgba(255,255,255,.75);
+}
+
+.col-2 {
+	display: flex;
+	justify-content: center;
+}
+
+h2 {
+	font-size: 4em;
+	font-family: "Six Caps";
+	margin: 25px 0;
+}
+
+h3 {
+	color: #99602e;
+	font-family: "Six Caps";
+	font-size: 3em;
+}
+
+hr {
+	border: 1px solid #000;
+}
+
+.text-wrapper {
+	padding-top: 75px;
+}
+
+@media screen and (min-width: 768px) {
+	hr {
+		margin: 120px 0;
+	}
+	.text-wrapper {
+	padding: 75px 0; 
+	background: url('./images/coffee-trans.png'); 
+	background-position: 50% 50%; 
+	background-repeat: no-repeat;
+	}
+	.mobile-logo {
+		display: none !important; /* hides on desktop */
+	}
+}
+
+li {
+	font-family: "Josefin Slab";
+	line-height: 2.16em;
+	font-size: 1.3em;
+	list-style: none;
+	/* line-height: 3.2em; */
+}
+
+
