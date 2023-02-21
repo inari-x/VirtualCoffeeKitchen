@@ -1,10 +1,7 @@
 # VirtualCoffeeKitchen
-<<<<<<< HEAD
-Digital twin for a virtual meeting room to interact with co-workers
-=======
+
 Digital twin for a virtual meeting room to interact with co-workers.
 The product is an implementation of a device that displays the current number of participants from a web API on an OLED screen. The device can connect to a Wi-Fi network or act as an access point. The device can also be configured to send a chat message to a Zoom meeting when the button is pressed. The device can be powered by a battery or a USB cable.
->>>>>>> main
 
 ```mermaid
 graph TB
