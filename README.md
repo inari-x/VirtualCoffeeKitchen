@@ -30,14 +30,14 @@ The second API call is ```$ curl <your server id>/participant-count```. It retur
 
 With Docker:
 
-To build the Docker image, run ```docker build --tag kitchen-docker .``` in the /coffee-kitche-server directory. You will have to rebuild it every time you change the code. 
+To build the Docker image, run ```$ docker build --tag kitchen-docker .``` in the /coffee-kitche-server directory. You will have to rebuild it every time you change the code. 
 To start the Docker container, run ```$ docker run --net=host -d  kitchen-docker```. Your app will now run on localhost:80 in your browser. 
 
 Without Docker:
 To run locally (without using the Docker), run ```$ python3 -m venv .venv
 $ source .venv/bin/activate``` to activate the environment you are working in. 
 Next, run ```$ pip3 install -r requirements.txt``` to install Flask and its dependencies.
-Then, run ```$ python3 kitchen.py``` and open "localhost:80" in your browser. 
+Then, run ```$ python3 kitchen.py``` and open http://localhost:80 in your browser. 
 
 # Changing the tech user
 
