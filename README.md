@@ -1,4 +1,4 @@
-# VirtualCoffeeKitchen
+# VirtualCoffeeKitchen Server
 
 Digital twin for a virtual meeting room to interact with co-workers. It is made up by 
 1. a device that displays the number of participants currently in said room. It can also send a link to join the meeting in this room. The link gets sent to the user the device is configured for via button click. 
