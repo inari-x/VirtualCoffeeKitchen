@@ -19,6 +19,7 @@ String content;
 String esid;
 String epass = "";
 String eemail = "";
+bool leaveWebUi;
 IPAddress ip;
 String ipStr;
 //Function Decalration
@@ -68,23 +69,24 @@ int getCurrentParticipants()
   HTTPClient http;
   http.begin("http://141.45.146.242:80/participant-count");
   int httpCode = http.GET();
-  if (httpCode != 200) {
-    Serial.println("Error making API request, HTTP code: " + String(httpCode));
-    return -1;
-  }
+  Serial.println(httpCode);
+  // if (httpCode != 200) {
+  //   Serial.println("Error making API request, HTTP code: " + String(httpCode));
+  //   return -1;
+  // }
   Serial.println("Server response: " + http.getStream());
   String payload = http.getString();
-  if (payload.length() == 0) {
-    Serial.println("Error: Payload is empty");
-    return -1;
-  }
+  // if (payload.length() == 0) {
+  //   Serial.println("Error: Payload is empty");
+  //   return -1;
+  // }
   Serial.println("Payload: " + payload);
   payload.trim();
   participants = atoi(payload.c_str());
-  if (participants == 0 && payload != "0") {
-    Serial.println("Error: Payload is not a valid integer");
-    return -1;
-  }
+  // if (participants == 0 && payload != "0") {
+  //   Serial.println("Error: Payload is not a valid integer");
+  //   return -1;
+  // }
   Serial.println("Participants count: " + String(participants));
   return participants;
 }
@@ -102,13 +104,13 @@ void displayParticipantsCount(int count)
 
 void flash()
 {
-  for (int i = 0; i < 5; i++){
+  for (int i = 0; i < 10; i++){
       Heltec.display -> setBrightness(255);
       Heltec.display -> drawXbm(0,0,flasher_width,flasher_height,(const unsigned char *)flasher);
       Heltec.display -> display();
-      delay(500);
+      delay(250);
       Heltec.display -> setBrightness(0);
-      delay(500);
+      delay(250);
     }
     Heltec.display -> setBrightness(255);
     Heltec.display -> clear();
@@ -116,7 +118,6 @@ void flash()
 
 void displayBatteryAndWifi() 
 {
-  Serial.println(analogRead(37));
   int batteryLevel = round((analogRead(37) / 4095.0) * 100);
   String batteryString = String(batteryLevel) + "%";
   Heltec.display->clear();
@@ -187,13 +188,28 @@ void loop()
   {
     buttonPressed=0;
     totalPressTime=0;
-    Serial.println("Joining the zoom meeting");
     Heltec.display->clear();
     Heltec.display->setFont(ArialMT_Plain_16);    
-    Heltec.display->drawString(10, 23, "Joining zoom");
+    Heltec.display->drawString(10, 23, "please wait");
     Heltec.display->display();
-    Heltec.display->setFont(ArialMT_Plain_10);
-    delay(2000);    
+    HTTPClient http;
+    http.begin("http://141.45.146.242:80/join-meeting");
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+    String payload = eemail.c_str();
+    int httpCode = http.POST(payload);
+    Serial.println("Joining the zoom meeting");
+    // Check if the request was successsful
+    if (httpCode == HTTP_CODE_OK) {
+      Heltec.display->clear();   
+      Heltec.display->drawString(10, 23, "Joining zoom");
+      Heltec.display->display();
+      // Read the response data
+      String response = http.getString();
+      Serial.println(response);
+    }
+    Heltec.display->setFont(ArialMT_Plain_10);    
+    // Cleanup
+    http.end();
   }
   else if(totalPressTime>=3000 &&totalPressTime<=8000 && buttonPressed==1){
     buttonPressed = 0;
@@ -201,13 +217,14 @@ void loop()
     WiFi.disconnect();
     setupAP();// Setup HotSpot
     Serial.println("The access point is set up");
-    while ((WiFi.status() != WL_CONNECTED))
+    leaveWebUi = false;
+    while (!leaveWebUi)
     {
       delay(10);
       server.handleClient();
     }
   }
-  else if (totalPressTime>8000 && buttonPressed==1)
+  else if (totalPressTime>9000 && buttonPressed==1)
   {
     Heltec.display->clear();
     Heltec.display->setFont(ArialMT_Plain_16); 
@@ -217,7 +234,7 @@ void loop()
     Serial.println("Going to sleep now");
     esp_deep_sleep_start();
   }
-  displayBatteryAndWifi();   
+  displayBatteryAndWifi();
 }
 
 void doRising()
@@ -251,9 +268,9 @@ bool testWifi(void)
 
 void launchWeb()
 {
-  if (WiFi.status() == WL_CONNECTED)
-  Serial.println(WiFi.localIP());
-  Serial.println(WiFi.softAPIP());
+  // if (WiFi.status() == WL_CONNECTED)
+  // Serial.println(WiFi.localIP());
+  // Serial.println(WiFi.softAPIP());
   createWebServer();
   // Start the server
   server.begin();
@@ -326,7 +343,7 @@ void createWebServer()
       content += "<head><style>body { font-family: Arial, sans-serif; text-align: center; }</style>";
       content += "<style>h1 { background-color: darkblue; color: white; padding: 20px; }</style></head>";
       content += "<h1>Welcome to the Wifi Credentials Update page</h1>";
-      content += "<p>To update your wifi credentials, please click the 'Scan' button below:</p>";
+      content += "<p>To update your wifi credentials, please click the 'Save' button below:</p>";
       content += "<p style='text-align: center;'>" + scanNetwork() + "</p>";
       content += "<p>Enter your new wifi credentials:</p><form method='get' action='setting'>";
       content += "<label>SSID: </label><input name='ssid' length=32><br><br>";
@@ -369,11 +386,13 @@ void createWebServer()
           Serial.println(qemail[i]);
         }
         EEPROM.commit();
+        leaveWebUi = true;
         content = "{\"Success\":\"Saved to EEPROM. Resetting to boot into new wifi wifi\"}";
         statusCode = 200;
         ESP.restart();
       } 
       else {
+        leaveWebUi = true;
         content = "{\"Error\":\"404 not found\"}";
         statusCode = 404;
       }
