@@ -52,7 +52,7 @@ The admin has to give the tech user the following rights:
 The tech user then has to add the above rights as scopes to the marketplace app and copy the credentials into the .env file. 
 The tech user needs to create a permanent Zoom room (recurring meeting without set time and "enable participants to enter anytime" set to true) and change the message sent to the user: 
 
-"This is your coffee kitchen join URL: <the join url for the permanent Zoom room>"
+"This is your coffee kitchen join URL: \<the join url for the permanent Zoom room\>"
   
  The tech user has to add the potential meeting participants to "Contacts" via Zoom App and they have to approve the contact request. 
 
