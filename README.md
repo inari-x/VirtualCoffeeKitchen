@@ -20,6 +20,7 @@ graph TB
 ```
 
 This is the code for the server that provides an API for the device to call. 
+
 The first API call is ```$ curl -X POST -d email=<chat message recipient> http://<your server IP and port>/join-meetings```. 
 It sends the following Zoom chat message from the tech user (configurable in the .env file) to the Zoom user whose email address is passed as a payload in the curl: "This is your coffee kitchen join URL: https://us06web.zoom.us/j/5024947364?pwd=OUw2ZnE3VFFXcjVZKzJkdHJidXF2Zz09". The URL is hard-coded and allows the user to enter a permanent Zoom room hosted by the tech user. It needs to be changed to a new permanent Zoom room URL in case the tech user changes.  
 
