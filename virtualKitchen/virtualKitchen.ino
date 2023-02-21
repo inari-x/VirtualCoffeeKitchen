@@ -20,8 +20,8 @@ unsigned long totalPressTime = 0;
 int buttonPressed = 0;
 String content;
 String esid;
-String epass = "";
-String eemail = "";
+String epass;
+String eemail;
 bool leaveWebUi;
 IPAddress ip;
 String ipStr;
@@ -73,18 +73,19 @@ int getCurrentParticipants()
   http.begin("http://141.45.146.242:80/participant-count");
   int httpCode = http.GET();
   Serial.println(httpCode);
-  // if (httpCode != 200) {
-  //   Serial.println("Error making API request, HTTP code: " + String(httpCode));
-  //   return -1;
-  // }
+  
   Serial.println("Server response: " + http.getStream());
   String payload = http.getString();
-  // if (payload.length() == 0) {
-  //   Serial.println("Error: Payload is empty");
-  //   return -1;
-  // }
   Serial.println("Payload: " + payload);
   payload.trim();
+  if (httpCode != 200) {
+    Serial.println("Error making API request, HTTP code: " + String(httpCode));
+    if (payload.length() == 0) {
+      Serial.println("Error: Payload is empty");
+      return PrevParticipants;
+    }    
+    return 0;
+  }
   participants = atoi(payload.c_str());
   // if (participants == 0 && payload != "0") {
   //   Serial.println("Error: Payload is not a valid integer");
@@ -165,12 +166,12 @@ void setup()
   }
   Serial.print("PASS: ");
   Serial.println(epass);
-  for (int i = 96; i < 150; ++i)
+  for (int i = 96; i < 140; ++i)
   {
     eemail += char(EEPROM.read(i));
   }
   Serial.print("EMAIL: ");
-  Serial.println(eemail);
+  Serial.println(eemail.c_str());
   WiFi.begin(esid.c_str(), epass.c_str());
   pinMode(17, INPUT_PULLUP);
   rtc_gpio_deinit(GPIO_NUM_2);
@@ -197,8 +198,8 @@ void loop()
     Heltec.display->display();
     HTTPClient http;
     http.begin("http://141.45.146.242:80/join-meeting");
-    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
-    String payload = eemail.c_str();
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");    
+    String payload = "email=" + String(eemail.c_str());
     int httpCode = http.POST(payload);
     Serial.println("Joining the zoom meeting");
     // Check if the request was successsful
@@ -206,11 +207,11 @@ void loop()
       Heltec.display->clear();   
       Heltec.display->drawString(10, 23, "Joining zoom");
       Heltec.display->display();
+      Heltec.display->setFont(ArialMT_Plain_10);
       // Read the response data
       String response = http.getString();
       Serial.println(response);
     }
-    Heltec.display->setFont(ArialMT_Plain_10);    
     // Cleanup
     http.end();
   }
@@ -363,7 +364,7 @@ void createWebServer()
       String qemail = server.arg("email");
       if (qsid.length() > 0 && qpass.length() > 0) {
         Serial.println("Clearing EEPROM");
-        for (int i = 0; i < 96; ++i) {
+        for (int i = 0; i < 150; ++i) {
           EEPROM.write(i, 0);
         }
         Serial.println(qsid);
