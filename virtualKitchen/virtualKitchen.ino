@@ -12,9 +12,6 @@
 
 int PrevParticipants = 0;
 int statusCode;                                //for config result
-// const char* ssid = "Default SSID";
-// const char* passphrase = "Default passord";  why are you here
-// const char* email = "Default email";
 unsigned long pressedTime  = 0;
 unsigned long totalPressTime = 0;
 int buttonPressed = 0;
@@ -257,7 +254,6 @@ void doFalling()
 bool testWifi(void) 
 {
   int c = 0;
-  //Serial.println("Waiting for Wifi to connect");
   while ( c < 10 ) {
     if (WiFi.status() == WL_CONNECTED)
     {
