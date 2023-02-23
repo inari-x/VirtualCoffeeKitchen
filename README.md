@@ -14,7 +14,7 @@ graph TB
   
   C -->|Send invite link via chat bot| D[Laptop]
   D -->|Pop up chat message with join link| E
-  E([User])-->|"Click link and click join"| 
+  E([User])-->|"Click link and click join"| D
 ```
 
  # VirtualCoffeeKitchen Server
