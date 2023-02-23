@@ -3,8 +3,28 @@ import requests
 import os
 import jwt
 import base64
+import time
 
 app = Flask(__name__)
+
+@app.route('/assign-participant-count-variable')
+def assign_participant_count():
+  """Call Zoom API every 6 seconds to get participants of current meeting and assign value to env variable"""
+  i = 0
+  while i < 9:
+    i += 1
+    r = requests.get(f"https://api.zoom.us/v2/metrics/meetings", headers = {
+      'authorization': f"bearer {get_zoom_token()}"})
+    json = r.json()
+    meeting = json.get('meetings')
+    participants = meeting[0].get('participants')
+    os.environ['PARTICIPANT_COUNT']=str(participants)
+    pcount = os.environ['PARTICIPANT_COUNT']
+    print(pcount)
+    time.sleep(6)
+  return pcount
+
+
 
 def get_zoom_token():
   header = 'Basic ' + base64.b64encode(f"{os.environ['CLIENT_ID']}:{os.environ['CLIENT_SECRET']}".encode()).decode()
@@ -33,27 +53,13 @@ def post_chat_message(recipient_email, tech_user):
   post_response = post_request(jsn, (f"chat/users/{tech_user}/messages"))
   return post_response
 
-def participant_count(meeting_id):
-  r = requests.get(f"https://api.zoom.us/v2/metrics/meetings", headers = {
-    'authorization': f"bearer {get_zoom_token()}"})
-  """participants =  r.json().get('participants')
-  participant_number = 0
-  for p in participants:
-    if 'leave_time' in p:
-      participant_number += 1"""
-  json = r.json()
-  meeting = json.get('meetings')
-  participants = meeting[0].get('participants')
-  return str(participants)
-
 @app.route('/')
 def hello_world():
   return 'Hello, Docker!'
 
-
 @app.route('/participant-count')
 def count_participants():
-  return participant_count('5024947364')
+  return os.environ['PARTICIPANT_COUNT']
 
 @app.route('/join-meeting', methods=['POST'])
 def zoom_api():
