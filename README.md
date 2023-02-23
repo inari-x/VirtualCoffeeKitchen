@@ -159,7 +159,7 @@ Setup Function
 
 # How to setup the Work Environment
 1. Download and install the Arduino IDE from https://www.arduino.cc/en/Main/Software
-2. Download and install the ESP32 board support packages
+2. Download and install the Heltec ESP32 Wifi Kit board support packages
 
 # How to run the code 
 1. Open the Arduino IDE and open the file "virtualKitchen.ino" from the "virtualKitchen" folder.
@@ -189,4 +189,4 @@ Setup Function
 
 # Conclusion
 
-The code provided in this documentation is an example of a basic IoT project that uses an ESP32 microcontroller to count and display the number of participants at an event. The code demonstrates how to use the ESP32 to connect to WiFi, interact with web servers, and interface with peripherals such as OLED screens and buttons. This code can be used as a starting point for more complex IoT projects that require similar functionality.
+The code provided in this documentation is an example of a basic IoT project that uses an Heltec ESP32 microcontroller to count and display the number of participants at an event. The code demonstrates how to use the ESP32 to connect to WiFi, interact with web servers, and interface with peripherals such as OLED screens and buttons. This code can be used as a starting point for more complex IoT projects that require similar functionality.
