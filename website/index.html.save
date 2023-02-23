@@ -66,12 +66,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#result">Results</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#UserManual">User Manual</a>      
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#Demonstration">Demonstration</a>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -136,7 +130,7 @@
                 <p>Our team was divided into three key roles - Scrum Master, Product Owner, and Developer - each responsible for specific tasks that contributed to our collective progress.</p>
                 
 
-                <img src="./images/TEAM2.jpg" style="max-width: 100%; margin-bottom: 20px; border-radius: 5px;" />
+                <img src="./images/TEAM1.jpeg" style="max-width: 100%; margin-bottom: 20px; border-radius: 5px;" />
 
                 <div class="row">
                     <div class="col-lg-6 col-xs-12">
@@ -254,32 +248,7 @@
             </div>
         </div>
 
-        <hr id="UserManual"/>
-
-        <div class="row">
-            <div class="col-lg-3 col-xs-12">
-                <h2><span class="text-random">User</span> <span class="text-virtualcoffeekitchen">Manual</span></h2>
-            </div>
-                <div class="col-lg-1 col-xs-12"></div>
-                <div class="col-lg-8 col-xs-12">
-
-                <h2>How to use the <span class="text-random">Virtual Coffee Kitchen</span> device.</h2>
-                <iframe src="./UserManual.pdf" width="80%" height="500px" style="margin-bottom:50px"></iframe>
-            </div>
-        </div>
-
-        <hr id="Demonstration"/>
-
-        <div class="row">
-            <div class="col-lg-3 col-xs-12">
-                <h2><span class="text-random">Demonstration</span></h2>
-            </div>
-                <div class="col-lg-1 col-xs-12"></div>
-                <div class="col-lg-8 col-xs-12">
-                <iframe width="80%" height="500px" style="margin-bottom: 50px;" src="https://www.youtube.com/embed/b0GekLcm3Ac" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-        </div>
-    
+        
 </main>
 
 <footer id="myfooter" class="footer mt-auto px-3 py-4 bg-dark">
