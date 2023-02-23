@@ -11,7 +11,7 @@
 #include "images.h"
 
 int PrevParticipants = 0;
-int statusCode;                                //for config result
+int statusCode;
 unsigned long pressedTime  = 0;
 unsigned long totalPressTime = 0;
 int buttonPressed = 0;
@@ -20,8 +20,6 @@ String esid;
 String epass;
 String eemail;
 bool leaveWebUi;
-IPAddress ip;
-String ipStr;
 //Function Decalration
 bool testWifi(void);
 void launchWeb(void);
@@ -31,10 +29,7 @@ WebServer server(80);
 #include "driver/rtc_io.h"
 #define BUTTON_PIN_BITMASK 0x200000000 // 2^33 in hex
 RTC_DATA_ATTR int bootCount = 0;
-/*
-Method to print the reason by which ESP32
-has been awaken from sleep
-*/
+
 void print_wakeup_reason()
 {
   esp_sleep_wakeup_cause_t wakeup_reason;
@@ -70,7 +65,6 @@ int getCurrentParticipants()
   http.begin("http://141.45.146.242:80/participant-count");
   int httpCode = http.GET();
   Serial.println(httpCode);
-  
   Serial.println("Server response: " + http.getStream());
   String payload = http.getString();
   Serial.println("Payload: " + payload);
@@ -84,10 +78,6 @@ int getCurrentParticipants()
     return 0;
   }
   participants = atoi(payload.c_str());
-  // if (participants == 0 && payload != "0") {
-  //   Serial.println("Error: Payload is not a valid integer");
-  //   return -1;
-  // }
   Serial.println("Participants count: " + String(participants));
   return participants;
 }
@@ -141,13 +131,13 @@ void displayBatteryAndWifi()
 
 void setup()
 {
-  Serial.begin(115200); //Initialising if(DEBUG)Serial Monitor
+  Serial.begin(115200);
   // SCREEN -----------------------------------------------------------------------------------------
   Heltec.begin(true /*DisplayEnable Enable*/, false /*LoRa Disable*/, true /*Serial Enable*/);
   delay(300);
   //---------------------------------------------------------------------------------------------------
   WiFi.disconnect();
-  EEPROM.begin(512); //Initialasing EEPROM
+  EEPROM.begin(512); 
   delay(10);
   attachInterrupt(0, isr, CHANGE);
   //---------------------------------------- Read eeprom for ssid and pass
@@ -199,24 +189,21 @@ void loop()
     String payload = "email=" + String(eemail.c_str());
     int httpCode = http.POST(payload);
     Serial.println("Joining the zoom meeting");
-    // Check if the request was successsful
     if (httpCode == HTTP_CODE_OK) {
       Heltec.display->clear();   
       Heltec.display->drawString(10, 23, "Joining zoom");
       Heltec.display->display();
-      Heltec.display->setFont(ArialMT_Plain_10);
-      // Read the response data
       String response = http.getString();
       Serial.println(response);
     }
-    // Cleanup
+    Heltec.display->setFont(ArialMT_Plain_10);
     http.end();
   }
   else if(totalPressTime>=3000 &&totalPressTime<=8000 && buttonPressed==1){
     buttonPressed = 0;
     totalPressTime=0;  
     WiFi.disconnect();
-    setupAP();// Setup HotSpot
+    setupAP();
     Serial.println("The access point is set up");
     leaveWebUi = false;
     while (!leaveWebUi)
@@ -269,11 +256,7 @@ bool testWifi(void)
 
 void launchWeb()
 {
-  // if (WiFi.status() == WL_CONNECTED)
-  // Serial.println(WiFi.localIP());
-  // Serial.println(WiFi.softAPIP());
   createWebServer();
-  // Start the server
   server.begin();
 }
 
@@ -302,7 +285,6 @@ String scanNetwork()
     Serial.print(n);
     for (int i = 0; i < n; ++i)
     {
-      // Print SSID and RSSI for each network found
       Serial.print(i + 1);
       Serial.print(": ");
       Serial.print(WiFi.SSID(i));
@@ -315,7 +297,6 @@ String scanNetwork()
   st = "<ol>";
   for (int i = 0; i < n; ++i)
   {
-    // Print SSID and RSSI for each network found
     st += "<li>";
     st += WiFi.SSID(i);
     st += " (";
@@ -330,9 +311,9 @@ String scanNetwork()
 
 void createWebServer()
 {
-  ip = WiFi.softAPIP();
-  ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
-  while (WiFi.softAPgetStationNum()==0);   // do not forget to set a timeout
+  IPAddress ip = WiFi.softAPIP();
+  String ipStr = String(ip[0]) + '.' + String(ip[1]) + '.' + String(ip[2]) + '.' + String(ip[3]);
+  while (WiFi.softAPgetStationNum()==0);  
   Heltec.display-> clear();
   Heltec.display->drawString(13, 25, "Inter the following IP in");
   Heltec.display->drawString(35, 34, "your browser:");
