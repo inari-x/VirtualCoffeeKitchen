@@ -2,4 +2,4 @@
 [Tt]humbs.db
 *.DS_Store 
 .DS_Store
-images/*
+website/images/*
