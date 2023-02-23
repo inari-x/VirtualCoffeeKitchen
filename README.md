@@ -90,8 +90,6 @@ The code uses the following libraries:
 - esid: A string that stores the SSID of the Wi-Fi network.
 - epass: A string that stores the password of the Wi-Fi network.
 - eemail: A string that stores the email of the user.
-- ip: An IPAddress that stores the IP address of the device.
-- ipStr: A string that stores the IP address of the device as a string.
 - bootCount: An integer that stores the number of times the device has been booted.
 
 # Functions
