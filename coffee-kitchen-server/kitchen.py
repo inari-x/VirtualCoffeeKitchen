@@ -8,23 +8,14 @@ import time
 app = Flask(__name__)
 
 @app.route('/assign-participant-count-variable')
-def assign_participant_count():
-  """Call Zoom API every 6 seconds to get participants of current meeting and assign value to env variable"""
-  i = 0
-  while i < 9:
-    i += 1
-    r = requests.get(f"https://api.zoom.us/v2/metrics/meetings", headers = {
-      'authorization': f"bearer {get_zoom_token()}"})
-    json = r.json()
-    meeting = json.get('meetings')
-    participants = meeting[0].get('participants')
-    os.environ['PARTICIPANT_COUNT']=str(participants)
-    pcount = os.environ['PARTICIPANT_COUNT']
-    print(pcount)
-    time.sleep(6)
-  return pcount
-
-
+def participant_count():
+  """Call Zoom API to get participants of current meeting and assign value to env variable"""
+  r = requests.get(f"https://api.zoom.us/v2/metrics/meetings", headers = {
+    'authorization': f"bearer {get_zoom_token()}"})
+  json = r.json()
+  meeting = json.get('meetings')
+  participants = meeting[0].get('participants')
+  return str(participants)
 
 def get_zoom_token():
   header = 'Basic ' + base64.b64encode(f"{os.environ['CLIENT_ID']}:{os.environ['CLIENT_SECRET']}".encode()).decode()
@@ -70,3 +61,4 @@ def zoom_api():
 
 if __name__ == '__main__':
   app.run(host='::', debug=True, port=80)
+  os.system("/coffee-kitchen-server/launch.sh")
